@@ -214,3 +214,7 @@
 2024-01-01 00:39:24,163 - __main__ - INFO - Weather in Berlin: 6.02
 2024-01-08 00:36:53,575 - __main__ - INFO - Token value: 1234
 2024-01-08 00:36:54,117 - __main__ - INFO - Weather in Berlin: -6.67
+2024-01-11 21:45:41,761 - __main__ - INFO - Token value: Token not available!
+2024-01-11 21:45:43,530 - __main__ - INFO - Weather in Berlin: 0.45
+2024-01-11 21:49:14,305 - __main__ - INFO - Token value: Token not available!
+2024-01-11 21:49:15,329 - __main__ - INFO - Weather in Berlin: 0.45
