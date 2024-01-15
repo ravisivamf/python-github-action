@@ -32,6 +32,6 @@ jobs:
           python -m pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi   
           
-      - name: execute py script # run main.py
-        run: python main.py simple.py
+      - name: execute py script # run sinple.py
+        run: python simple.py
         
