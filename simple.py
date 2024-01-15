@@ -1,4 +1,5 @@
 import os
+import requests
 
 class MyNumbers:
   def __iter__(self):
