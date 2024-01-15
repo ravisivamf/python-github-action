@@ -1,24 +1,37 @@
+import logging
+import logging.handlers
 import os
+
 import requests
 
-class MyNumbers:
-  def __iter__(self):
-    self.a = 1
-    return self
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger_file_handler = logging.handlers.RotatingFileHandler(
+    "status.log",
+    maxBytes=1024 * 1024,
+    backupCount=1,
+    encoding="utf8",
+)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger_file_handler.setFormatter(formatter)
+logger.addHandler(logger_file_handler)
 
-  def __next__(self):
-    x = self.a
-    self.a += 1
-    return x
+try:
+    SOME_SECRET = os.environ["SOME_SECRET"]
+except KeyError:
+    SOME_SECRET = "Token not available!"
+    #logger.info("Token not available!")
+    #raise
 
-myclass = MyNumbers()
-myiter = iter(myclass)
 
-print(next(myiter))
-print(next(myiter))
-print(next(myiter))
-print(next(myiter))
-print(next(myiter))
+if __name__ == "__main__":
+    logger.info(f"Token value: {SOME_SECRET}")
+
+    r = requests.get('https://weather.talkpython.fm/api/weather?city=irving&state=TX&country=US&units=imperial')
+    if r.status_code == 200:
+        data = r.json()
+        temperature = data["forecast"]["temp"]
+        logger.info(f'Weather in Irving, TX: {temperature}')
 
 r = requests.get('https://weather.talkpython.fm/api/weather?city=irving&state=TX&country=US&units=imperial')
 if r.status_code == 200:
