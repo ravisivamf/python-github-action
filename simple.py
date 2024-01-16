@@ -26,7 +26,6 @@ except KeyError:
 
 if __name__ == "__main__":
     logger.info(f"Token value: {SOME_SECRET}")
-
     r = requests.get('https://weather.talkpython.fm/api/weather?city=irving&state=TX&country=US&units=imperial')
     if r.status_code == 200:
         data = r.json()
