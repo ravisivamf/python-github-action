@@ -1,0 +1,47 @@
+
+name: run myapp.py
+
+on:
+  schedule:
+    - cron: '0 0 * * 2' # At 00:00 on Monday
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch: 
+
+  # run on every push on the master branch
+  push:
+    branches:
+    - main
+
+jobs:
+  Generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+  
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8.x 
+          
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+      - name: execute python program
+        run: python myapp.py
+          
+      - name: commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+          
+      - name: push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: git push -u origin main
