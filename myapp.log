@@ -41,3 +41,6 @@ INFO:root:Finished2
 INFO:root:Started
 INFO:root:Doing something
 INFO:root:Finished2
+INFO:root:Started
+INFO:root:Doing something
+INFO:root:Finished2
